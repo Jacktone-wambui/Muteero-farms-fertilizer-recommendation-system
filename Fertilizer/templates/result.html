@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fertilizer Prediction Result</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      text-align: center;
+      background-image: url(pexels-nirjon-nakib-18185333.jpg);
+      background-size: cover;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      color: #333;
+      text-shadow:  black;
+    }
+    .message-box {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    button {
+      background-color: #0066A2;
+      border-color: #0066A2;
+      border-style: outset;
+      color: white;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font: bold 20px Arial, sans-serif;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Prediction Result</h1>
+    <div class="message-box">
+      <p>{{ x }}</p>
+    </div>
+    <button onclick="goBack()">Go Back</button>
+  </div>
+  <script>
+    function goBack() {
+      window.history.back(); // Go back to the previous page (index.html)
+    }
+  </script>
+</body>
+</html>
