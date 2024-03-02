@@ -32,5 +32,3 @@ Only three algorithms are used to predict the output. They are *Logistic Regress
 
 ## Deployment : 
 I have used *flask* library to create the application.\
-The application is deployed in *Google Cloud Platform*.
-App URL : https://fertitilizer-prediction.el.r.appspot.com/
