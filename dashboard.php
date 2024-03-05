@@ -12,15 +12,16 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$adminId = 6; 
-$sql = "SELECT name FROM user WHERE user_id = $adminId";
+
+$userId = $_SESSION["user_id"];
+$sql = "SELECT name FROM user WHERE user_id = $userId";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $adminName = $row["name"];
+    $userName = $row["name"];
 } else {
-    echo "No admin found with the given ID";
+    echo "No UserName found";
     exit;
 }
 $conn->close();
@@ -98,7 +99,7 @@ $conn->close();
 <body>
     <div class="dashboard">
         <h1>Welcome <?php echo $adminName; ?></h1>
-        <a href="../index.html" class="logout-btn">Logout</a>
+        <a href="logout.php" class="logout-btn">Logout</a>
     </div>
     <div class="main-content">
     <h2>Fertilizer recommendation system</h2>
