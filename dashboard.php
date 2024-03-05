@@ -62,6 +62,24 @@ $conn->close();
             margin-top: 0;
         }
 
+         .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
         .logout-btn {
             background-color: blue;
             color: #fff;
@@ -98,8 +116,14 @@ $conn->close();
 </head>
 <body>
     <div class="dashboard">
-        <h1>Welcome <?php echo $adminName; ?></h1>
-        <a href="logout.php" class="logout-btn">Logout</a>
+        <h1>Welcome <?php echo $userName; ?></h1>
+       <div class="dropdown">
+        <img src="person-icon.png" alt="Person Icon">
+        <div class="dropdown-content">
+            <a href="account.php">Account Information</a>
+            <a href="settings.php">Settings</a>
+            <a href="logout.php">Logout</a>
+        </div>
     </div>
     <div class="main-content">
     <h2>Fertilizer recommendation system</h2>
