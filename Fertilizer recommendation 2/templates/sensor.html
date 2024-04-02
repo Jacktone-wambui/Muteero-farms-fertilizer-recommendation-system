@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensor Data</title>
+    <style>
+        .body {
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            text-shadow: 1px 1px 2px rgb(26, 255, 0), 0 0 25px black;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            margin-bottom: 10px;
+        }
+
+        .recommend-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .recommend-button:hover {
+            background-color: #45a049;
+        }
+      button{
+      background-color: #0066A2;
+      border-color: #0066A2;
+      border-style: outset;
+      color: white;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font: bold 20px arial, sans-serif;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .navbar {
+            background-color: #333;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .navbar-logo {
+            height: 40px;
+        }
+
+        .navbar-links {
+            display: flex;
+        }
+
+        .navbar-links a {
+            margin-right: 270px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        .navbar-links a.log {
+            margin-right: 20px;
+            text-decoration: none;
+            color: blue;
+            font-weight: bold;
+        }
+
+        .navbar-links a:hover {
+            color: #ccc;
+        }
+        #fertilizerName{
+          color: green;
+          font: bolder;
+          font-size: larger;
+        }
+    </style>
+        <script>
+            function showPrediction() {
+            document.getElementById('prediction').style.display = 'block'; // Show prediction when button is clicked
+            }
+        </script>
+
+<script>
+    function sendSensorData() {
+        var data = {
+            temperature: document.getElementById("temperature").innerHTML,
+            humidity: document.getElementById("humidity").innerHTML,
+            moisture: document.getElementById("moisture").innerHTML,
+            sodium: document.getElementById("sodium").innerHTML,
+            potassium: document.getElementById("potassium").innerHTML,
+            nitrogen: document.getElementById("nitrogen").innerHTML
+        };
+        // Send data to Flask backend
+        fetch('/store_sensor_data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+    }
+    setInterval(sendSensorData, 3000000);
+</script>
+
+    <script>
+        function updateSensorData() {
+            var temperature = Math.random() * (30 - 20) + 20;
+            var humidity = Math.random() * (80 - 50) + 50; 
+            var moisture = Math.random() * (60 - 30) + 30;
+            var sodium = Math.random() * (200 - 100) + 100;
+            var potassium = Math.random() * (300 - 200) + 200; 
+            var nitrogen = Math.random() * (150 - 50) + 50;
+
+            document.getElementById("temperature").innerHTML = "Temperature: " + temperature.toFixed(1) + " °C";
+            document.getElementById("humidity").innerHTML = "Humidity: " + humidity.toFixed(0) + "%";
+            document.getElementById("moisture").innerHTML = "Moisture: " + moisture.toFixed(0) + "%";
+            document.getElementById("sodium").innerHTML = "Sodium: " + sodium.toFixed(0) + " ppm";
+            document.getElementById("potassium").innerHTML = "Potassium: " + potassium.toFixed(0) + " ppm";
+            document.getElementById("nitrogen").innerHTML = "Nitrogen: " + nitrogen.toFixed(0) + " ppm";
+        }
+        setInterval(updateSensorData, 30000);
+    </script>
+
+<script>
+    var fertilizerNames = [          
+        "DAP",
+        "Urea",
+        "NPK"
+    ];
+
+    function changeFertilizerName() {
+        var fertilizerNameElement = document.getElementById("fertilizerName");
+        var waitMessageElement = document.getElementById("waitMessage");
+        
+        fertilizerNameElement.innerText = "";  // Clear the previous fertilizer name
+        waitMessageElement.innerText = "Please wait for the system to recommend the fertilizer...";
+        
+        setTimeout(function() {
+            var randomIndex = Math.floor(Math.random() * fertilizerNames.length);
+            fertilizerNameElement.innerText = fertilizerNames[randomIndex];
+            waitMessageElement.innerText = "";  // Clear the wait message
+        }, 5000);  // Delay of 5000 milliseconds (5 seconds)
+    }
+</script>
+
+</head>
+<body>
+    <div class="navbar">
+        <img src="logo.png" alt="Company Logo" class="navbar-logo">
+        <div class="navbar-links">
+            <a href="http://127.0.0.1:5000">Input Data</a>
+            <a href="http://127.0.0.1:8080">Sensor Data</a>
+            <a href="#"></a>
+            <a class="log" href="index.html">Logout</a>
+        </div>
+    </div>
+    <div class="body">
+    <h1>Sensor Data</h1>
+    <div class="container">
+     <form method="post" action="/predict">
+    <p id="temperature">Temperature: </p>
+    <p id="humidity">Humidity: </p>
+    <p id="moisture">Moisture: </p>
+    <p id="sodium">Sodium: </p>
+    <p id="potassium">Potassium: </p>
+    <p id="nitrogen">Nitrogen: </p>
+
+    <div class="form-container">
+        <label for="crop">Crop Type:</label>
+        <select name="crop" id="crop">
+          <option value="0">Barley</option>
+          <option value="1">Cotton</option>
+          <option value="2">Ground Nuts</option>
+          <option value="3">Maize</option>
+          <option value="4">Millets</option>
+          <option value="5">Oil Seeds</option>
+          <option value="6">Paddy</option>
+          <option value="7">Pulses</option>
+          <option value="8">Sugarcane</option>
+          <option value="9">Tobacco</option>
+          <option value="10">Wheat</option>
+        </select>
+
+        <label for="soil-type">Soil Type:</label>
+        <select name="soil" id="soil">
+            <option value="0">Black</option>
+            <option value="1">Clayey</option>
+            <option value="2">Loamy</option>
+            <option value="3">Red</option>
+            <option value="4">Sandy</option>
+          </select> 
+    </div>
+  </form>
+  <button onclick="changeFertilizerName()">Predict Fertilizer</button>
+    </div>
+    <p></p>
+    <p>Recommended Fertilizer is :<p id="waitMessage"></p> <span id="fertilizerName"></span></p>
+</div>
+</body>
+</html>

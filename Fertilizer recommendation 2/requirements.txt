@@ -1,0 +1,17 @@
+certifi
+click
+Flask
+itsdangerous
+Jinja2
+joblib
+MarkupSafe
+numpy
+pandas
+python-dateutil
+pytz
+scikit-learn
+scipy
+six
+threadpoolctl
+Werkzeug
+wincertstore
